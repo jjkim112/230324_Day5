@@ -1,0 +1,84 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
+$pc: 1280px;
+
+%btnStyle {
+  background-color: white;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+@mixin responsive($device) {
+  @if $device == "pc" {
+    @media (min-width: $pc) {
+      @content;
+    }
+  }
+}
+
+body {
+  margin: 0;
+  color: #222222;
+  font-family: "Pretendard";
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    max-width: 1280px;
+    margin: auto;
+    height: 20px;
+    .menu {
+      .logo {
+        width: 108px;
+      }
+
+      button {
+        // background-color: white;
+        // font-size: 16px;
+        // font-weight: 600;//이 3줄은 메뉴의 버튼과 로그인 박스의 버튼에 공통적인 부분, 이것을 로그인 안에도 적용해도되지만 익스텐드이용//
+        @extend %btnStyle;
+        display: none; //잠시숨김 이따 풀기//
+        border: 0px; //버튼 테두리 없애기위해 버튼으로 하면 테두리가 존재하므로//
+        padding-left: 16px;
+        padding-right: 16px;
+
+        &:nth-child(2) {
+          margin-left: 44px;
+        } //메뉴안에 버튼안에 버튼차일드인데 또 버튼을 넣을 수 없으니 앤드&를 이용함 그리고 n차일드가 2인 이유는 메뉴안에 자식요소 img가 1번째인데 이친구부터 세서 그렇다고함, 즉 버튼은 형제요소중에 2번째부터 그이후이므로 html에 적은 것에 의하면.//
+
+        @include responsive("pc") {
+          display: inline-block;
+        }
+      }
+    }
+  }
+  .loginBox {
+    display: flex;
+    align-items: center;
+    .login {
+      @extend %btnStyle;
+      display: inline-block;
+      border: 1px solid rgb(232, 232, 232);
+      border-radius: 9999px;
+      padding: 8px 16px;
+      font-size: 14px;
+
+      @include responsive("pc") {
+        color: #737373;
+        font-size: 16px;
+        border: 0px;
+        padding: 0px;
+      }
+    }
+
+    .ellipsis {
+      width: 24px;
+      margin-left: 16px;
+      @include responsive("pc") {
+        display: none;
+      }
+    }
+  }
+}
